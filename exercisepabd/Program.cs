@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
@@ -95,10 +96,18 @@ namespace exercisepabd
                                                 break;
                                         }
                                     }
+                                    catch
+                                    {
+                                        Console.Clear();
+                                        Console.ForegroundColor = ConsoleColor.Red;
+                                        Console.WriteLine("Tidak Dapat Mengakses Database Menggunakan User Tersebut\n");
+                                        Console.ResetColor();
+                                    }
                                 }
                             }
                     }
-                    
+
+
                 }
 
             }
@@ -111,7 +120,33 @@ namespace exercisepabd
 
         private void baca(SqlConnection conn)
         {
-            throw new NotImplementedException();
+            SqlCommand cmd = new SqlCommand("Select * From HRD.Siswa", conn);
+            SqlDataReader r = cmd.ExecuteReader();
+            while (r.Read())
+            {
+                for (int i = 0; i < r.FieldCount; i++)
+                {
+                    Console.WriteLine(r.GetValue(i));
+                }
+                Console.WriteLine();
+            }
+        }
+        public void insert(string NIS, string Namasiswa, string Jk, string Almt, string Kk, string Kj, SqlConnection con)
+        {
+            string str = "";
+            str = "insert into HRD.Siswa (NIS, Nama_siswa, Jenis_Kelamin, Alamat, Asal_Sekolah, Kode_Kelas, Kode_Jurusan)"
+                + "values(@nis,@namasiswa,@Jk,@alamat,@As,@Kk,@Kj)";
+            SqlCommand cmd = new SqlCommand(str, con);
+            cmd.CommandType = CommandType.Text;
+
+            cmd.Parameters.Add(new SqlParameter("nis", NIS));
+            cmd.Parameters.Add(new SqlParameter("namasiswa", Namasiswa));
+            cmd.Parameters.Add(new SqlParameter("Jk", Jk));
+            cmd.Parameters.Add(new SqlParameter("alamat", Almt));
+            cmd.Parameters.Add(new SqlParameter("Kk", Kk));
+            cmd.Parameters.Add(new SqlParameter("Kj", Kj));
+            cmd.ExecuteNonQuery();
+            Console.WriteLine("Data Berhasil Di Tambahkan");
         }
     }
 }
