@@ -77,6 +77,10 @@ namespace exercisepabd
                                                         pr.insert(NIS, Namasiswa, Jk, Almt, As, Kk, Kj);
                                                         conn.Close();
                                                     }
+                                                    catch
+                                                    {
+                                                        Console.WriteLine("\nAnda tidak memiliki " + "akses untuk menambah data");
+                                                    }
                                                 }
                                         }
                                     }
