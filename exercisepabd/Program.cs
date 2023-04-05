@@ -82,6 +82,17 @@ namespace exercisepabd
                                                         Console.WriteLine("\nAnda tidak memiliki " + "akses untuk menambah data");
                                                     }
                                                 }
+                                                break;
+                                            case '3':
+                                                conn.Close();
+                                                return;
+                                            default:
+                                                {
+
+                                                    Console.Clear();
+                                                    Console.WriteLine("\nInvalid Option");
+                                                }
+                                                break;
                                         }
                                     }
                                 }
